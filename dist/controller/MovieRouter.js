@@ -16,12 +16,19 @@ const express_1 = __importDefault(require("express"));
 const Movie_1 = __importDefault(require("../model/Movie"));
 const movieRouter = express_1.default.Router();
 movieRouter.get("/getMovies", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Getting 20 movies");
+    console.log("Getting 10 movies");
     return Movie_1.default.find()
-        .limit(20)
+        .limit(10)
         .then((response) => {
         res.status(200).send(response);
         console.log("Succesfully got movies");
     });
+}));
+movieRouter.get("/movies/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params;
+    console.log("Getting 1 movie ");
+    const result = yield Movie_1.default.findOne({ _id: `${id.id}` });
+    res.status(200).send(result);
+    console.log(result);
 }));
 exports.default = movieRouter;
